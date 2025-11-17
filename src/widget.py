@@ -1,6 +1,6 @@
-from mypy.typeops import separate_union_literals
+from __future__ import annotations
 
-from masks import get_mask_card_number, get_mask_account
+from .masks import get_mask_card_number, get_mask_account
 
 
 def mask_account_card(raw_card_number: str) -> str:
@@ -11,10 +11,17 @@ def mask_account_card(raw_card_number: str) -> str:
     count_card_number = len(card_number)
     type_card = ' '.join(card_number[:count_card_number - 1])  # Получаем тип карты
 
+    mask: str
+
     if type_card.lower() == "счет":
         mask = get_mask_account(card_number[-1])  # берём только маску номера счёта
     else:
-        mask = get_mask_card_number(card_number[-1])  # берём только маску номера карты
+        card_mask = get_mask_card_number(card_number[-1])  # берём только маску номера карты
+
+        if card_mask is None:
+            raise ValueError("Номер карты должен содержать 16 цифр")
+
+        mask = card_mask
 
     return type_card + ' ' + mask
 
