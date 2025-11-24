@@ -1,21 +1,21 @@
-# Название проекта:
+# Title:
 
-Виджет для личного кабинета клиента
+Widget for a personal account
 
-## Описание:
+## Description:
 
-Это виджет, который показывает несколько последних успешных банковских операций клиента
+This widget shows several successful banking transactions of the client
 
-## Установка:
+## Installing:
 
-1.клонируйте репозиторий
+1.Clone the repository
+
 ```
 git clone git@github.com:dimakondykov-bot/bankvidget.git
 ```
 
-2.установите зависимости 
+2.Install requirements
+
 ```
 pip instull -r requirements.txt
 ```
-
-

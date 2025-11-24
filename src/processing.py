@@ -1,5 +1,5 @@
 def filter_by_state(data: list, state: str = 'EXECUTED') -> list:
-    """ функция фильтрует данные по параметру 'state' """
+    """ Filter by 'state' """
 
     filtered_data = []
 
@@ -11,9 +11,6 @@ def filter_by_state(data: list, state: str = 'EXECUTED') -> list:
 
 
 def sort_by_date(list_data: list, mode: bool = False) -> list:
-    """ функция сортирует данные по дате """
+    """ Sort by 'date' """
 
     return sorted(list_data, key=lambda item: item['date'], reverse=mode)
-
-
-
