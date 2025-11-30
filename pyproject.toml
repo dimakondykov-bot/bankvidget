@@ -48,6 +48,11 @@ no_implicit_optional = true
 warn_return_any = true
 exclude = 'venv'
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "tests_*.py"]
+python_functions = ["test_*"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
