@@ -33,17 +33,11 @@ def card_number_generator(start: int = 1, end: int = 9999999999999999) -> Genera
         start: начальный номер (без пробелов) от 1 до 9999999999999999
         end: конечный номер (без пробелов) до 9999999999999999
     """
-    # Проверяем корректность диапазона
+
     if not (1 <= start <= end <= 9999999999999999):
         raise ValueError("Некорректный диапазон номеров")
 
-    # Генерируем номера от start до end
     for number in range(start, end + 1):
-        # Преобразуем число в строку из 16 цифр с ведущими нулями
         card_str = str(number).zfill(16)
-
-        # Форматируем: XXXX XXXX XXXX XXXX
         formatted = f"{card_str[0:4]} {card_str[4:8]} {card_str[8:12]} {card_str[12:16]}"
-
-        # Возвращаем отформатированный номер
         yield formatted
