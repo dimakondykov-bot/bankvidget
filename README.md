@@ -19,3 +19,9 @@ git clone git@github.com:dimakondykov-bot/bankvidget.git
 ```
 pip instull -r requirements.txt
 ```
+
+3.program testing 
+
+```
+pytest
+```
