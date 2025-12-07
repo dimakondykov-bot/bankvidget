@@ -25,3 +25,7 @@ pip instull -r requirements.txt
 ```
 pytest
 ```
+
+### adding generator functions
+
+1. tools for efficient work with large volumes of transaction data
