@@ -1,31 +1,26 @@
-from typing import Any, Generator, List, Dict, Iterator
+from typing import Iterator
 
 
-def filter_by_currency(transactions: List[Dict], currency: str) -> Generator[dict, Any, None] | None:
+def filter_by_currency(transactions: list, currency_code: str = "USD") -> Iterator[str]:
     """
-    Filter transactions by currency.Фильтрует транзакции по валюте.
+    Фильтрует транзакции по указанной валюте.
+    Возвращает итератор по транзакциям в указанной валюте.
 
-Args:
-    transactions: Список словарей с транзакциями
-    currency: Код валюты для фильтрации (например, 'USD', 'EUR')
+    Args:
+        transactions: Список транзакций
+        currency_code: Код валюты (по умолчанию "USD")
+
+    Yields:
+        Транзакции, где валюта операции соответствует currency_code
     """
-    if not isinstance(transactions, list):
-        raise TypeError("transactions должен быть списком")
-
-    if not currency:
-        raise ValueError("currency не может быть пустым")
-
     for transaction in transactions:
-        if not isinstance(transactions, list):
-            continue
-        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
-            return (transaction for transaction in transactions
-                    if transaction.get("operationAmount", {}).get("currency", {}).get(
-                "code").upper() == currency.upper())
-    return None
+        if (transaction.get('operationAmount') and
+                transaction['operationAmount'].get('currency') and
+                transaction['operationAmount']['currency'].get('code') == currency_code):
+            yield transaction
 
 
-def card_number_generator(start: int = 1, end: int = 9999999999999999) -> Generator[str, Any, None]:
+def card_number_generator(start: int = 1, end: int = 9999999999999999) -> Iterator[str]:
     """
     Генератор номеров банковских карт в формате XXXX XXXX XXXX XXXX
 
@@ -41,3 +36,18 @@ def card_number_generator(start: int = 1, end: int = 9999999999999999) -> Genera
         card_str = str(number).zfill(16)
         formatted = f"{card_str[0:4]} {card_str[4:8]} {card_str[8:12]} {card_str[12:16]}"
         yield formatted
+
+
+def transaction_descriptions(transactions: list) -> Iterator[str]:
+    """
+    Генератор, который возвращает описание каждой транзакции.
+
+    Args:
+        transactions: Список транзакций.
+
+    Yields:
+        Описание каждой транзакции (строка)
+    """
+    for transaction in transactions:
+        description = transaction.get('description', '')
+        yield description
