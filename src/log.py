@@ -1,7 +1,8 @@
 import time
+from typing import Callable, Any, Optional
 
 
-def log(filename=None):
+def log(filename: Optional[str] = None) -> Callable:
     """
        Декоратор, который пишет сообщения о работе функции.
 
@@ -13,8 +14,9 @@ def log(filename=None):
        - что функция вернула результат
        - если была ошибка, пишет её текст
        """
-    def decorator(func):
-        def wrapper(*args, **kwargs):
+
+    def decorator(func: Callable) -> Callable:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             func_name = func.__name__
             current_time = time.strftime("%Y%m%d-%H%M%S")
 
@@ -43,10 +45,7 @@ def log(filename=None):
                     with open(filename, 'a', encoding="utf-8") as f:
                         f.write(message)
                 raise
-        return wrapper
-    return decorator
 
-@log()
-def func_test():
-    return 1
-func_test()
+        return wrapper
+
+    return decorator

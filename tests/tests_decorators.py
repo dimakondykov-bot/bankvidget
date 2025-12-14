@@ -1,9 +1,10 @@
 from src.log import log
+from typing import Any
 
 
-def test_log_success(capsys):
+def test_log_success(capsys: Any) -> None:
     @log()
-    def add(a, b):
+    def add(a: int, b: int) -> int:
         return a + b
 
     result = add(2, 3)
@@ -15,9 +16,9 @@ def test_log_success(capsys):
     assert "завершилась 5" in lines[1]
 
 
-def test_log_exception_simple(capsys):
+def test_log_exception_simple(capsys: Any) -> None:
     @log()
-    def call_error():
+    def call_error() -> None:
         raise ValueError("ошибка!")
 
     try:

@@ -1,6 +1,4 @@
-import pytest
-
-from src.generators import filter_by_currency, card_number_generator, transaction_descriptions
+from src.generators import card_number_generator, transaction_descriptions
 
 
 def test_first_card_number() -> None:
