@@ -37,7 +37,8 @@ def log(filename: Optional[str] = None) -> Callable:
                         f.write(message + '\n')
                 return result
             except Exception as e:
-                message = f'{current_time}: функция "{func_name}" вызвала ошибку {type(e).__name__}: {str(e)}'
+                message = (f'{current_time}: функция "{func_name}" вызвала ошибку {type(e).__name__}: {str(e)}. '
+                           f'Аргументы: *args={args}, **kwargs={kwargs}')
 
                 if filename is None:
                     print(message)
