@@ -29,3 +29,10 @@ pytest
 ### adding generator functions
 
 1. tools for efficient work with large volumes of transaction data
+
+#### Added a decorator and decorator testing
+
+1. Logs:
+- that the function was called and with what arguments
+- that the function returned a result
+- if there was an error, it displays the error text
