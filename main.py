@@ -21,6 +21,8 @@ def main():
         "to": "Счет 64686473678894779589"
     }))
 
+    print(utils.load_transactions('D:\\repositories\\test_poetry\\data\\operations.json'))
+
 
 if __name__ == '__main__':
     main()

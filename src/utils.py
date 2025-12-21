@@ -9,12 +9,8 @@ def load_transactions(path_to_file) -> list:
     try:
         with open(path_to_file, 'r', encoding='utf-8') as f:
             return json.loads(f.read())
-    except FileNotFoundError:
-        parsed_data = []
-        if isinstance(parsed_data, list):
-            return parsed_data
-        else:
-            return []
+    except:
+        return []
 
 
 def get_amount_from_transaction(transaction_dict) -> float:
