@@ -8,8 +8,12 @@ def load_transactions(path_to_file) -> list:
     возвращает список словарей с данными о финансовых транзакциях """
     try:
         with open(path_to_file, 'r', encoding='utf-8') as f:
-            return json.loads(f.read())
-    except:
+            content = f.read().strip()
+            if not content:
+                return []
+
+            return json.loads(content)
+    except json.JSONDecodeError:
         return []
 
 
