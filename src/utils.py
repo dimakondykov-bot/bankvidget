@@ -9,12 +9,18 @@ def load_transactions(path_to_file) -> list:
     try:
         with open(path_to_file, 'r', encoding='utf-8') as f:
             content = f.read().strip()
-            if not content:
+            if isinstance(content, list):
                 return []
 
-            return json.loads(content)
-    except json.JSONDecodeError:
+            return json.load(content)
+    except FileNotFoundError:
+        print(f"файл {path_to_file} не найден")
         return []
+    except json.JSONDecodeError:
+        print(f"ошибка JSON файла {path_to_file}")
+        return []
+    except Exception as e:
+        print(f"ошибка при чтении {path_to_file}: {e}")
 
 
 def get_amount_from_transaction(transaction_dict) -> float:
@@ -23,18 +29,34 @@ def get_amount_from_transaction(transaction_dict) -> float:
     operation = transaction_dict.get('operationAmount')
     amount = operation.get('amount')
     currency_code = operation.get('currency').get('code')
+    try:
+        operation = transaction_dict.get('operationAmount')
+        if not operation:
+            return 0.0
 
-    if currency_code != 'RUB':
-        headers = {
-            "apikey": os.getenv('API_LAYER_KEY'),
-        }
+        amount = operation.get('amount')
+        if amount is None:
+            return 0.0
 
-        response = requests.get(
-            f'https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency_code}&amount={amount}',
-            headers=headers
-        )
+        currency_code = operation.get('currency')
+        if currency_code is None:
+            return float(amount)
 
-        body = response.json()
-        amount = body.get('result')
+        currency_code = currency_code.get('code')
 
-    return float(amount)
+        if currency_code != 'RUB':
+            headers = {
+                "apikey": os.getenv('API_LAYER_KEY'),
+            }
+
+            response = requests.get(
+                f'https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency_code}&amount={amount}',
+                headers=headers
+            )
+            body = response.json()
+            amount = body.get('result')
+
+        return float(amount)
+    except Exception as e:  # ИЗМЕНЕНИЕ 7: общий обработчик
+        print(f"Неожиданная ошибка при обработке транзакции: {e}")
+        return 0.0
