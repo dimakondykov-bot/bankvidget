@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import src.utils as utils
+import src.masks as masks
 
 
 def main():
@@ -22,6 +23,7 @@ def main():
     }))
 
     print(utils.load_transactions('D:\\repositories\\test_poetry\\data\\operations.json'))
+    masks.get_mask_card_number('1234123412341234')
 
 
 if __name__ == '__main__':
