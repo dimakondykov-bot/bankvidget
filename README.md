@@ -36,3 +36,41 @@ pytest
 - that the function was called and with what arguments
 - that the function returned a result
 - if there was an error, it displays the error text
+
+# adding extractor function
+
+1. функция для чтения и преобразование данных из различных форматов таких как CSV и Excel в единый формат данных -
+ список словарей.
+
+
+## Основные функции:
+
+1. Чтение CSV файлов
+```
+
+from data_extractor import extract_from_csv
+
+# Простое чтение
+data = extract_from_csv("data.csv")
+
+# С указанием параметров
+data = extract_from_csv(
+    "data.csv",
+    delimiter=";",
+    encoding="utf-8-sig"
+)
+```
+
+2. Чтение Excel файлов
+```
+from data_extractor import extract_from_xlsx
+
+# Чтение первого листа
+data = extract_from_xlsx("data.xlsx")
+
+# Чтение конкретного листа и колонок
+data = extract_from_xlsx(
+    "data.xlsx",
+    sheet_name="Отчет",
+    use_columns=["Name", "Age", "City"]
+```
