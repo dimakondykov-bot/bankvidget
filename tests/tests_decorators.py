@@ -1,5 +1,6 @@
-from src.log import log
 from typing import Any
+
+from src.log import log
 
 
 def test_log_success(capsys: Any) -> None:

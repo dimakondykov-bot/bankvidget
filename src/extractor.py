@@ -1,7 +1,8 @@
-from typing import Any
 import csv
 import logging
 import os
+from typing import Any
+
 import pandas as pd  # type: ignore
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
