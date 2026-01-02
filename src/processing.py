@@ -4,7 +4,7 @@ def filter_by_state(data: list, state: str = 'EXECUTED') -> list:
     filtered_data = []
 
     for item in data:
-        if item['state'] == state:
+        if item.get('state') == state:
             filtered_data.append(item)
 
     return filtered_data

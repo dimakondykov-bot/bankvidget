@@ -1,5 +1,6 @@
 import re
 import logging
+from collections import Counter
 
 
 def filter_operations_by_description(data: list[dict], search: str) -> list[dict]:
@@ -27,11 +28,14 @@ def count_operations_by_category(operations: list[dict], categories: list) -> di
     а возвращать словарь, в котором ключи — это названия категорий, а значения — это количество операций
     в каждой категории.
     """
-    result = {}
+
+    category_list = []
 
     for operation in operations:
         category = operation.get('description')
         if category in categories:
-            result[category] = result.get(category, 0) + 1
+            category_list.append(category)
 
-    return result
+    result = Counter(category_list)
+
+    return dict(result)
