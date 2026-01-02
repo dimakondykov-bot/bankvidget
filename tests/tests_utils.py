@@ -1,4 +1,4 @@
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
 from src.utils import get_amount_from_transaction, load_transactions
 

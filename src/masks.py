@@ -11,18 +11,18 @@ logger.addHandler(file_handler)
 def get_mask_card_number(card_number: str) -> str | None:
     """принимает на вход номер карты в виде числа и возвращает маску номера по правилу"""
 
-    if len(card_number) != 16: # проверяет длину номера карты и возвращает None, если она не равна 16 символам
+    if len(card_number) != 16:  # проверяет длину номера карты и возвращает None, если она не равна 16 символам
         logger.info('проверяем длину номера карты')
 
         logger.error(f'ошибка длины номера карты: {len(card_number)}')
         return None
 
-    if not card_number.isdigit(): # проверка формата карты, если содержит не только цифры
+    if not card_number.isdigit():  # проверка формата карты, если содержит не только цифры
         logger.error(f'ошибка формата карты: {card_number}')
         return None
 
     groups = []
-    for i in range(0, len(card_number), 4): # делаем срез внутри цикла по 4 символа
+    for i in range(0, len(card_number), 4):  # делаем срез внутри цикла по 4 символа
         logger.info('делаем срез по 4 символа')
         groups.append(card_number[i: i + 4])
 

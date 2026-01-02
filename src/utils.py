@@ -42,7 +42,7 @@ def get_amount_from_transaction(transaction_dict) -> float:
         currency_code = operation.get('currency').get('code')
 
         if not operation:
-            logger.error(f'В транзакции нет данных об операции')
+            logger.error('В транзакции нет данных об операции')
             return 0.0
 
         if amount is None:
