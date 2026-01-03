@@ -91,7 +91,7 @@ def process_transactions(data):
 
         print(f'{widget.get_date(operation.get("date"))} {operation.get("description")}')
         print(f'{masked_from} -> {masked_to}')
-        print(f'Сумма: {amount_transaction}')
+        print(f'Сумма: ₽{amount_transaction}')
 
 
 if __name__ == '__main__':
