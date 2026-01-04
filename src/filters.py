@@ -1,5 +1,4 @@
 import re
-import logging
 from collections import Counter
 
 
