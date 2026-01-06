@@ -83,15 +83,20 @@ def process_transactions(data):
     for operation in result:
         masked_from = operation.get('from')
 
-        if masked_from != '':
+        if masked_from != '' and masked_from is not None:
             masked_from = widget.mask_account_card(masked_from)
 
         masked_to = widget.mask_account_card(operation.get('to'))
-        amount_transaction = utils.get_amount_from_transaction(operation)
+
+        operation_amount = operation.get('operationAmount')
+        amount = operation_amount.get('amount')
+        currency_code = operation_amount.get('currency').get('code')
+
+        # amount_transaction = utils.get_amount_from_transaction(operation)
 
         print(f'{widget.get_date(operation.get("date"))} {operation.get("description")}')
         print(f'{masked_from} -> {masked_to}')
-        print(f'Сумма: {amount_transaction}')
+        print(f'Сумма: {amount} {currency_code}')
 
 
 if __name__ == '__main__':
