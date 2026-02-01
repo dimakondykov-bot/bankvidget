@@ -6,6 +6,7 @@ import requests
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+logger.propagate = False
 file_handler = logging.FileHandler("logs/app.log", encoding='utf-8', mode='w')
 file_formater = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(file_formater)
@@ -54,14 +55,27 @@ def get_amount_from_transaction(transaction_dict) -> float:
             return float(amount)
 
         if currency_code != 'RUB':
+
+            access_token = os.getenv('API_LAYER_KEY')
+
+            if not access_token:
+                logger.error('Токен доступа \'API_LAYER_KEY\' не задан')
+                return -1
+
             headers = {
-                "apikey": os.getenv('API_LAYER_KEY'),
+                "apikey": access_token,
             }
 
             response = requests.get(
                 f'https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency_code}&amount={amount}',
                 headers=headers
             )
+
+            if response.status_code != 200:
+                logger.error('Ошибка при выполнении запроса к сервису api.apilayer.com: '
+                             + str(response.status_code) + str(response.content))
+                return -1
+
             body = response.json()
             amount = body.get('result')
 
